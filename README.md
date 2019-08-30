@@ -14,5 +14,5 @@ Sensors MQTT format:
 
 Run with:
 
-`podman build -t sensorbridge .`
-`podman run --rm -it -e RTL_HOST=rtl-tcp.example.com -e MQTT_HOST=mqtt.example.com -e METER_IDS=12345 sensorbridge`
+`podman build -t rtl_exporter .`
+`podman run --rm -it -e RTL_HOST=rtl-tcp.example.com -e MQTT_HOST=mqtt.example.com -e METER_IDS=12345 rtl_exporter`
