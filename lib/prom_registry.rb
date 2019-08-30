@@ -18,8 +18,8 @@ class PromRegistry
                                        '433 mhz device battery status')
   end
 
-  def self.meter_consumption
-    @meter_consumption ||= registry.gauge(:meter_consumption,
-                                          'Electric meter consumption')
+  def self.rtlamr_consumption
+    @rtlamr_consumption ||= registry.gauge(:rtlamr_consumption,
+                                           'Utility consumption')
   end
 end

@@ -20,7 +20,7 @@ class MeterToMQTT
 
         consumption = parsed['consumption']
 
-        PromRegistry.meter_consumption.set(metadata, consumption)
+        PromRegistry.rtlamr_consumption.set(metadata, consumption)
       end
     end
   end
