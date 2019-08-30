@@ -25,7 +25,7 @@ RUN cd rtl_433/ && \
 
 RUN go get github.com/bemasher/rtlamr
 
-RUN apt-get install -y ruby && gem install mqtt
+RUN apt-get install -y ruby ruby-dev && gem install mqtt sinatra puma prometheus-client
 
 ADD main.rb /
 
