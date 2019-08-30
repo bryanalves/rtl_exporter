@@ -69,18 +69,14 @@ class MeterFetcher
     type = message['Type']
     consumption = message['Consumption']
 
-    PromRegistry.meter_consumption.set(
-      {
-        message_type: 'scm',
-        type: type,
-        id: id
-      },
-      consumption
-    )
+    mqtt_message = {
+      message_type: 'scm',
+      type: type,
+      id: id,
+      consumption: consumption
+    }
 
-    mqtt.publish("rtlamr/#{id}/message_type", 'scm')
-    mqtt.publish("rtlamr/#{id}/type", type)
-    mqtt.publish("rtlamr/#{id}/consumption", consumption)
+    mqtt.publish("rtlamr/events/", mqtt_message.to_json)
   end
 
   def publish_scm_plus(mqtt, message)
@@ -88,33 +84,26 @@ class MeterFetcher
     type = message['EndpointType']
     consumption = message['Consumption']
 
-    PromRegistry.meter_consumption.set(
-      {
-        message_type: 'scm+',
-        type: type,
-        id: id
-      },
-      consumption
-    )
+    mqtt_message = {
+      message_type: 'scm+',
+      type: type,
+      id: id,
+      consumption: consumption
+    }
 
-    mqtt.publish("rtlamr/#{id}/message_type", 'scm+')
-    mqtt.publish("rtlamr/#{id}/type", type)
-    mqtt.publish("rtlamr/#{id}/consumption", consumption)
+    mqtt.publish('rtlamr/events', mqtt_message.to_json)
   end
 
   def publish_r900(mqtt, message)
     id = message['ID']
     consumption = message['Consumption']
 
-    PromRegistry.meter_consumption.set(
-      {
-        message_type: 'r900',
-        id: id
-      },
-      consumption
-    )
+    mqtt_message = {
+      message_type: 'r900',
+      id: id,
+      consumption: consumption
+    }
 
-    mqtt.publish("rtlamr/#{id}/message_type", 'r900')
-    mqtt.publish("rtlamr/#{id}/consumption/", consumption)
+    mqtt.publish('rtlamr/events', mqtt_message.to_json)
   end
 end

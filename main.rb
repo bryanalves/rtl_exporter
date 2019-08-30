@@ -6,11 +6,13 @@ require 'prometheus/client'
 require 'prometheus/client/formats/text'
 
 require_relative 'lib/app.rb'
-require_relative 'lib/mqtt_bridge.rb'
 require_relative 'lib/prom_registry.rb'
 
-require_relative 'lib/meter_fetcher.rb'
-require_relative 'lib/sensor_fetcher.rb'
+require_relative 'lib/meter/fetcher.rb'
+require_relative 'lib/meter/mqtt.rb'
+
+require_relative 'lib/sensor/fetcher.rb'
+require_relative 'lib/sensor/mqtt.rb'
 
 Thread.new do
   meter_fetcher = MeterFetcher.new(rtl_host: ENV['RTL_HOST'],
@@ -27,7 +29,11 @@ Thread.new do
 end
 
 Thread.new do
-  MQTTBridge.new(ENV['MQTT_HOST']).run
+  SensorToMQTT.new(ENV['MQTT_HOST']).run
+end
+
+Thread.new do
+  MeterToMQTT.new(ENV['MQTT_HOST']).run
 end
 
 App.run!

@@ -1,4 +1,4 @@
-class MQTTBridge
+class SensorToMQTT
   def initialize(mqtt_host)
     @mqtt_host = mqtt_host
   end
