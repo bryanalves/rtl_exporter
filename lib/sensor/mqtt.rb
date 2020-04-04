@@ -22,7 +22,7 @@ class SensorToMQTT
         humidity = parsed['humidity']
         battery = parsed['battery_ok']
 
-        PromRegistry.rtl433_temperature.set(metadata, temperature)
+        PromRegistry.rtl433_temperature.set(metadata, temperature) if temperature
         PromRegistry.rtl433_humidity.set(metadata, humidity) if humidity
         PromRegistry.rtl433_battery.set(metadata, battery) if battery
       end
